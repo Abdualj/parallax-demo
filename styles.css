@@ -1,0 +1,40 @@
+body {
+      margin: 0;
+      font-family: sans-serif;
+      color: #fff;
+    }
+
+    .section {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .parallax {
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: bold;
+    }
+
+    .bg1 {
+      background-image: url('https://picsum.photos/id/1018/1920/1080');
+    }
+
+    .bg2 {
+      background-image: url('https://picsum.photos/id/1025/1920/1080');
+    }
+
+    .bg3 {
+      background-image: url('https://picsum.photos/id/1003/1920/1080');
+    }
