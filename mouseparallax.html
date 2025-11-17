@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parallax Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+      color: white;
+    }
+    
+    .section {
+      padding: 100px 20px;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    
+    .parallax {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      position: relative;
+      overflow: hidden;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    .bg1 {
+      background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    }
+    
+    .bg2 {
+      background-image: url('https://images.unsplash.com/photo-1542272201-b1ca555ef850?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    }
+    
+    .bg3 {
+      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    }
+    
+    /* Mousemove parallax */
+    .parallax-mouse {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #1a2980, #26d0ce);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .mouse-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: transform 0.1s ease-out;
+      will-change: transform;
+    }
+    
+    .layer-1 {
+      background-image: url('https://images.unsplash.com/photo-1542272201-b1ca555ef850?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      z-index: 1;
+    }
+    
+    .layer-2 {
+      background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+      z-index: 2;
+    }
+    
+    .mouse-content {
+      text-align: center;
+      color: white;
+      z-index: 3;
+      padding: 20px;
+      max-width: 800px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+    
+    .coordinates {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      z-index: 10;
+    }
+    
+    .coordinates-center {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-family: monospace;
+      z-index: 10;
+    }
+    
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .section {
+        font-size: 1.2rem;
+        padding: 60px 20px;
+      }
+      
+      .parallax {
+        font-size: 1.5rem;
+      }
+      
+      .coordinates, .coordinates-center {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Scroll parallax osio -->
+  <div class="section" style="background:#222;">Scrollaa alas nähdäksesi parallax-magia ✨</div>
+
+  <div class="parallax bg1">Kerros 1</div>
+  <div class="section" style="background:#333;">Tässä on vähän sisältöä välissä.</div>
+
+  <div class="parallax bg2">Kerros 2</div>
+  <div class="section" style="background:#444;">Lisää scrollaamista, enemmän tunnelmaa.</div>
+
+  <div class="parallax bg3">Kerros 3</div>
+  <div class="section" style="background:#222;">Loppu - hienoa scrollaamista! 🚀</div>
+
+  <!-- Mousemove parallax osio -->
+  <div class="parallax-mouse" id="mouseSection">
+    <div class="mouse-bg"></div>
+    <div class="layer layer-1" data-speed="0.05"></div>
+    <div class="layer layer-2" data-speed="0.1"></div>
+    <div class="mouse-content">
+      <h2>Mousemove Parallax</h2>
+      <p>Liikuta hiirtä nähdäksesi efektin</p>
+    </div>
+    <div class="coordinates" id="mouseCoords">X: 0, Y: 0</div>
+    <div class="coordinates-center" id="mouseCenterCoords">Center X: 0, Center Y: 0</div>
+  </div>
+
+  <footer>
+    <p>Parallax Efektit - Scroll & Mousemove</p>
+  </footer>
+
+  <script>
+    // Mousemove parallax
+    const mouseSection = document.getElementById('mouseSection');
+    const layers = document.querySelectorAll('.layer');
+    const mouseCoords = document.getElementById('mouseCoords');
+    const mouseCenterCoords = document.getElementById('mouseCenterCoords');
+    
+    mouseSection.addEventListener('mousemove', function(e) {
+      const rect = mouseSection.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = (x - rect.width / 2) / (rect.width / 2);
+      const centerY = (y - rect.height / 2) / (rect.height / 2);
+      
+      mouseCoords.textContent = `X: ${Math.round(x)}, Y: ${Math.round(y)}`;
+      mouseCenterCoords.textContent = `Center X: ${centerX.toFixed(2)}, Center Y: ${centerY.toFixed(2)}`;
+      
+      layers.forEach(layer => {
+        const speed = parseFloat(layer.getAttribute('data-speed'));
+        const moveX = centerX * 100 * speed;
+        const moveY = centerY * 100 * speed;
+        
+        layer.style.transform = `translateX(${moveX}px) translateY(${moveY}px)`;
+      });
+    });
+  </script>
+</body>
+</html>
